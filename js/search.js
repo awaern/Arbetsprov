@@ -3,7 +3,7 @@ $(function() {
 
   // Remove list item
   $(document).on('click','.remove', function() {
-    $(this).parent().parent().remove();
+    $(this).parent().remove();
   });
  
   // Append search result to list
