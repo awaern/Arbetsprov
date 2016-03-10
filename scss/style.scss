@@ -1,0 +1,190 @@
+@import 'bourbon/bourbon';
+
+// Variables
+
+$blue: #002751;
+$blue-light: #3b57a6;
+$grey: #8093a8;
+$white: #ffffff;
+$red: #793953;
+
+// breakpoints
+   
+$S:     480px;   
+$M:     768px;     
+$L:     1170px;     
+
+// media queries mixin
+
+@mixin MQ($canvas) {
+  @if $canvas == S {
+   @media only screen and (min-width: $S) { @content; } 
+  }
+  @else if $canvas == M {
+   @media only screen and (min-width: $M) { @content; } 
+  }
+  @else if $canvas == L {
+   @media only screen and (min-width: $L) { @content; } 
+  }
+}
+ 
+
+*, *::after, *::before {
+	@include prefixer(box-sizing, border-box, webkit moz spec);
+}
+
+html {
+	font-size: 62.5%;
+
+	@include MQ(M) {
+		font-size: 72.5%;	
+	}
+
+	@include MQ(L) {
+		font-size: 82.5%;
+	} 
+}
+
+body {
+	font-family: 'Helvetica', Arial, sans-serif;
+	font-size: 1.4rem;
+	line-height: 1.5;
+	background-color: $blue;
+	@include background(linear-gradient($blue, $blue-light) no-repeat fixed);
+}
+
+html, body {
+	height: 100%;
+}
+
+a {
+	color: $blue;
+	text-decoration: none;
+}
+
+.logo {
+	display: block;
+	width: 130px;
+	height: auto;
+	margin: 4em auto;
+
+	@include MQ(L) {
+		width: 200px;	 	
+	}
+}
+
+.container {
+	margin: 0 auto;
+	max-width: $M;
+	
+}
+
+.search-field {
+	margin-bottom: 2em;
+	padding: 0 1em;
+
+	label {
+		display: block;
+		height: 1px;
+		@include hide-text;
+	}
+
+	input {
+		display: block;
+		position: relative;
+		width: 100%;
+		background: $grey url("../UI/assets/search.svg") 1em center no-repeat;
+		background-size: 15px;
+		border: none;
+		border-radius: 3px;
+		font-size: 1.6rem;
+		padding: 1em 2.5em;
+		color: $white;
+		@include transition(all 0.3s);
+
+		&:focus {
+			background-color: lighten($grey, 20%);
+			outline: 0;
+		}
+
+		@include placeholder {
+		    color: lighten($grey, 20%);
+		 }
+	}
+
+	@include MQ(M) {
+		padding: 0;
+	}
+
+	@include MQ(L) {
+
+		input {
+			background-size: 20px;
+		}
+	}
+}
+
+.search-results {
+	background-color: rgba($white, 0.1);
+	max-width: $M;
+	margin: 0 auto;
+}
+
+.result-list {
+	
+	li {
+		position: relative;
+		color: $white;
+		padding: 1em;
+		@include transition(all 0.3s);
+		
+
+		&:hover {
+			background-color: rgba($white, 0.3);
+			.remove {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.remove {
+	visibility: hidden;
+	opacity: 0;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 6rem;
+	height: 100%;
+	background-color: $red;
+	cursor: pointer;
+	@include transition(all 0.3s);
+
+	&:after {
+		content: 'x';
+		text-align: center;
+		position: absolute;
+		color: $blue;
+		width: 2rem;
+		height: 2rem;
+		background-color: $white;
+		border-radius: 50%;
+		margin-top: -(2rem/2);
+		margin-left: -(2rem/2);
+		top: 50%;
+		left: 50%;
+	}
+}
+.title {
+	font-size: 1.6rem;
+	display: inline-block;
+	width: 50%;
+}
+.date {
+	text-align: right;
+	font-size: 1.2rem;
+	display: inline-block;
+	width: 50%;
+}
